@@ -8,6 +8,6 @@ Contiene proyectos completos para PSoC 5LP: fuentes C/H, esquemáticos `TopDesig
 
 Se omiten archivos temporales y generados; abrir el proyecto en PSoC Creator y regenerarlos antes de compilar.
 
-**Seguridad:** esta copia usa `LAB7_MODO_MONITOR` y autorizaciones de control deshabilitadas. No programar el lazo cerrado sin validar previamente el hardware, la calibración, los límites y las protecciones. Los nombres internos de algunas funciones HAL se conservaron para mantener compatibilidad con el proyecto realmente utilizado; cambiarlos implica actualizar el proyecto y repetir las pruebas.
+**Seguridad:** el proyecto base y la configuración de trabajo de `Propuesta/` usan `LAB7_MODO_MONITOR` y autorizaciones de control deshabilitadas. La carpeta `Originales/` conserva una configuración histórica de lazo abierto; no debe programarse directamente. No programar el lazo cerrado sin validar previamente el hardware, la calibración, los límites y las protecciones. Los nombres internos de algunas funciones HAL se conservaron para mantener compatibilidad con el proyecto realmente utilizado; cambiarlos implica actualizar el proyecto y repetir las pruebas.
 
 Las adquisiciones físicas están archivadas bajo `../../datos/originales/`; no deben confundirse con una ejecución futura de la copia publicada.
