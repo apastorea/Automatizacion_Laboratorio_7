@@ -38,4 +38,3 @@ Se estudiaron cuatro ejecuciones: Predictor E1 alternativo, Actual E1 alternativ
 
 La comparación es representativa de estas ejecuciones y no constituye una demostración de robustez global. Las curvas no se reescalaron para forzar coincidencia.
 
-**Identificación:** La sigla `SDG` se encuentra exclusivamente en la esquina inferior derecha de la última página del informe.
