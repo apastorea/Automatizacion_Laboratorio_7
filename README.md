@@ -45,4 +45,4 @@ La comparación es representativa de estas ejecuciones y no constituye una demos
 - [**Capturadores de los ensayos**](Laboratorio_7/04_Ensayos/). Comandos Windows para UART y Rigol.
 - [**Herramientas Python USB/VISA y UART**](Herramientas_Comunes/Rigol_y_UART/README.md).
 
-Las configuraciones C publicadas se entregan en modo seguro MONITOR con las autorizaciones de control deshabilitadas. Los registros reales de los cuatro ensayos están en `datos/originales/`. Se conservan los nombres técnicos internos de las bibliotecas de hardware para no romper las referencias de los proyectos.
+Las configuraciones de trabajo principales se entregan en MONITOR con las autorizaciones de control deshabilitadas. Los respaldos históricos conservan su configuración de origen y no deben programarse directamente. Los registros reales de los cuatro ensayos están en `datos/originales/`. Se conservan los nombres técnicos internos de las bibliotecas de hardware para no romper las referencias de los proyectos.
