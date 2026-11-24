@@ -1,0 +1,24 @@
+# Archivos temporales de LaTeX
+*.aux
+*.log
+*.out
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.bbl
+*.blg
+*.toc
+*.lot
+*.lof
+
+# MATLAB
+*.asv
+*.autosave
+
+# Python
+__pycache__/
+*.pyc
+
+# Editores
+.vscode/
+.idea/
