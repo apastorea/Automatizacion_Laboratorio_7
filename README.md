@@ -38,3 +38,11 @@ Se estudiaron cuatro ejecuciones: Predictor E1 alternativo, Actual E1 alternativ
 
 La comparación es representativa de estas ejecuciones y no constituye una demostración de robustez global. Las curvas no se reescalaron para forzar coincidencia.
 
+## Fuentes MATLAB y proyectos PSoC
+
+- [**MATLAB: modelado, diseño, simulación y robustez**](Laboratorio_7/01_Modelado_MATLAB/README.md). Contiene todos los scripts `.m` propios de la práctica.
+- [**PSoC 5LP y proyectos PSoC Creator**](Laboratorio_7/02_Firmware_PSoC_5LP/README.md). Incluye los dos proyectos, esquemáticos, archivos C/H, configuraciones y estimadores.
+- [**Capturadores de los ensayos**](Laboratorio_7/04_Ensayos/). Comandos Windows para UART y Rigol.
+- [**Herramientas Python USB/VISA y UART**](Herramientas_Comunes/Rigol_y_UART/README.md).
+
+Las configuraciones C publicadas se entregan en modo seguro MONITOR con las autorizaciones de control deshabilitadas. Los registros reales de los cuatro ensayos están en `datos/originales/`. Se conservan los nombres técnicos internos de las bibliotecas de hardware para no romper las referencias de los proyectos.

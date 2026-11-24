@@ -22,3 +22,21 @@ __pycache__/
 # Editores
 .vscode/
 .idea/
+# Salidas generadas por PSoC Creator
+**/Generated_Source/
+**/codegentemp/
+**/Debug/
+**/Release/
+**/Export/
+*.aldop
+*.svd
+**/*_timing.html
+*.elf
+*.hex
+*.o
+*.lst
+*.map
+*.bak
+*.pyc
+Thumbs.db
+desktop.ini
