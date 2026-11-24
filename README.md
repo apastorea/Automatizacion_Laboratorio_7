@@ -1,6 +1,6 @@
 # Laboratorio 7 — Automatización
 
-**Control digital mediante realimentación de estados estimados: observadores de predicción y de estado actual**
+**Control digital por realimentación de estados estimados: observadores de predicción y de estado actual**
 
 **Autor:** Aldo Pastore  
 **Carrera:** Ingeniería Electrónica  
@@ -10,22 +10,32 @@
 
 [**Abrir Informe_Lab7_Automatizacion_Pastore_v1.pdf**](Informe_Lab7_Automatizacion_Pastore_v1.pdf)
 
-Este repositorio independiente contiene exclusivamente la entrega académica del Laboratorio 7: fundamentos matemáticos, diseño de observadores, experimentación con PSoC 5LP y comparación de cuatro configuraciones a partir de señales adquiridas por UART y Rigol DS1202Z-E.
+Este repositorio independiente reúne la entrega académica del Laboratorio 7: modelo de planta, ubicación de polos, implementación de los estimadores en PSoC 5LP y evaluación de cuatro configuraciones sobre un mismo montaje experimental.
 
-El ensayo emplea una referencia de 50 mV y un período de muestreo de 2 ms.
+Se utilizó una referencia común de **50 mV** y un período de muestreo de **2 ms**. El informe distingue las simulaciones del modelo, la salida muestreada registrada por UART y las señales físicas adquiridas mediante el Rigol DS1202Z-E.
 
-## Archivos de entrega
+## Materiales
 
-| Ruta | Descripción |
+| Carpeta o archivo | Contenido |
 |---|---|
-| `Informe_Lab7_Automatizacion_Pastore_v1.pdf` | Informe final en formato académico |
-| `main.tex`, `referencias.bib` | Fuentes LaTeX para Overleaf |
-| `figuras/` | Gráficas experimentales y comparativas |
-| `datos/comparacion_cuatro_ensayos.csv` | Indicadores numéricos de los cuatro ensayos |
-| `datos/originales/` | CSV y metadatos de las adquisiciones originales |
-| `anexos/reproducir_cuatro_ensayos_lab7.m` | Script MATLAB de reproducción |
-| `README_OVERLEAF.md` | Instrucciones para compilar el informe |
+| [`Informe_Lab7_Automatizacion_Pastore_v1.pdf`](Informe_Lab7_Automatizacion_Pastore_v1.pdf) | Informe académico completo, formato de dos columnas |
+| [`main.tex`](main.tex), [`referencias.bib`](referencias.bib) | Fuentes editables para Overleaf y bibliografía |
+| [`figuras/`](figuras/) | Gráficas de respuestas, mandos y comparaciones instrumentales |
+| [`datos/comparacion_cuatro_ensayos.csv`](datos/comparacion_cuatro_ensayos.csv) | Síntesis numérica de las cuatro pruebas |
+| [`datos/originales/`](datos/originales/) | Datos UART, canales físicos CH1/CH2 y metadatos originales de adquisición |
+| [`anexos/reproducir_cuatro_ensayos_lab7.m`](anexos/reproducir_cuatro_ensayos_lab7.m) | Script MATLAB para reproducir la comparación de las cuatro salidas muestreadas |
+| [`README_OVERLEAF.md`](README_OVERLEAF.md) | Instrucciones de compilación del informe |
 
-## Reproducibilidad y alcance
+## Cómo reproducir la comparación
 
-Se preservan los registros instrumentales originales de Predictor E1, Actual E1, Predictor E2 y Actual E2. Las gráficas del informe distinguen las señales registradas de las simuladas. Las conclusiones corresponden al alcance de los ensayos efectuados y no constituyen una certificación de robustez para cualquier condición operativa.
+En MATLAB, abrí `anexos/reproducir_cuatro_ensayos_lab7.m` y ejecutá el script desde el editor. La rutina localizará los CSV almacenados en `datos/originales/` y mostrará las cuatro respuestas, el sobrepasamiento, el tiempo de pico y la media final.
+
+Para compilar el informe en Overleaf, cargá los archivos del repositorio como proyecto y seleccioná **pdfLaTeX** con `main.tex` como documento principal.
+
+## Alcance de los resultados
+
+Se estudiaron cuatro ejecuciones: Predictor E1 alternativo, Actual E1 alternativo, Predictor E2 original y Actual E2 original. Cada registro contiene 256 muestras, con cero banderas de error durante la ventana observada. Las capturas del osciloscopio usaron respaldo de disparo temporizado; los datos instrumentales se conservan tal como fueron registrados, incluidos los metadatos de sincronización.
+
+La comparación es representativa de estas ejecuciones y no constituye una demostración de robustez global. Las curvas no se reescalaron para forzar coincidencia.
+
+**Identificación:** La sigla `SDG` se encuentra exclusivamente en la esquina inferior derecha de la última página del informe.

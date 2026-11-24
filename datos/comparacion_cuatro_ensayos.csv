@@ -1,0 +1,5 @@
+﻿caso,referencia_mV,n_muestras,t_escalon_ms,pico_ADC_mV,t_pico_desde_escalon_ms,sobrepasamiento_pct,media_final_50_ADC_mV,desvio_final_50_ADC_mV,error_medio_seguimiento_mV,error_medio_seguimiento_pct,RMS_y_menos_xhat2_mV,u_max_nominal_mV,u_final_mV,CPU_max_us,periodo_mediano_us,flags_no_cero,CH1_baseline_mV,CH1_meseta_mV,CH1_delta_mV,CH2_baseline_mV,CH2_meseta_mV,CH2_delta_mV,CH2_ruido_desvio_mV,modo_detectado,modo_esperado,disparo_forzado,pulso_CH1,valido_preliminar
+Predictor E1 (alt.),50.0,256,64.0,60,12.0,20.0,46.24,2.99,3.76,7.52,3.366,92,46.0,112,2000,0,14.732,59.922,45.19,11.856,56.596,44.74,11.425,PREDICCION,ABIERTO,True,True,False
+Actual E1 (alt.),50.0,256,64.0,65,13.999,30.0,43.12,0.84,6.88,13.76,1.56,92,46.0,110,2000,0,14.672,60.022,45.351,11.651,56.338,44.687,11.625,ACTUAL,ABIERTO,True,True,False
+Predictor E2,50.0,256,64.0,61,12.0,22.0,45.0,0.0,5.0,10.0,1.473,92,46.0,112,2000,0,14.982,59.939,44.956,12.395,56.88,44.485,11.506,PREDICCION,PREDICCION,True,True,True
+Actual E2,50.0,256,64.0,64,13.999,28.000000000000004,47.88,0.84,2.12,4.24,0.366,92,46.0,111,2000,0,15.123,60.128,45.005,12.355,56.68,44.325,11.587,ACTUAL,PREDICCION,True,True,False
