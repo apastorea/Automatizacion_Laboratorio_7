@@ -20,7 +20,7 @@ u_ideal=zeros(1,N-1);innovacion=zeros(1,N-1);
 saturado=false(1,N-1);
 for k=1:N-1
     y(k)=d.C*x(:,k)+d.D*0;
-    r(k)=p.referencia_V*(k>10);
+    r(k)=p.referencia_V*(t(k)>=p.referencia_inicio_s);
     if strcmp(modo,'actual')
         % Corregir estimacion previa utilizando la medicion y[k] ACTUAL.
         innovacion(k)=y(k)-d.C*xh_mem;
@@ -43,7 +43,7 @@ for k=1:N-1
     end
 end
 y(N)=d.C*x(:,N);
-r(N)=p.referencia_V;
+r(N)=p.referencia_V*(t(N)>=p.referencia_inicio_s);
 if strcmp(modo,'actual')
     xh(:,N)=xh_mem+o.L_actual*(y(N)-d.C*xh_mem);
 else

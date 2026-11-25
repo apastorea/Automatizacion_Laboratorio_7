@@ -1,0 +1,88 @@
+{
+  "timestamp_local": "2026-11-23T22:34:13-03:00",
+  "resource": "USB0::0x1AB1::0x0517::DS1ZE275014864::INSTR",
+  "idn": "RIGOL TECHNOLOGIES,DS1202Z-E,DS1ZE275014864,00.06.04",
+  "system_errors_before_capture": [],
+  "run_state": "STOP",
+  "timebase_scale_s_div": "1.0000000e-02",
+  "timebase_offset_s": "0.0000000e+00",
+  "sample_rate_sa_s": "5.000000e+07",
+  "memory_depth_points": "AUTO",
+  "CHAN1": {
+    "display": "1",
+    "coupling": "DC",
+    "probe_ratio": "1.000000e+01",
+    "scale_v_div": "1.000000e+00",
+    "offset_v": "0.000000e+00",
+    "bandwidth_limit": "20M"
+  },
+  "CHAN2": {
+    "display": "1",
+    "coupling": "DC",
+    "probe_ratio": "1.000000e+01",
+    "scale_v_div": "2.000000e-02",
+    "offset_v": "0.000000e+00",
+    "bandwidth_limit": "20M"
+  },
+  "measurements": {
+    "CHAN1": {
+      "VMAX": 2.6,
+      "VMIN": -0.04,
+      "VPP": 2.64,
+      "VAVG": 1.173512,
+      "VRMS": 1.682136,
+      "VAMP": 2.4107,
+      "PERIOD": null,
+      "FREQUENCY": null,
+      "RTIME": "measure error!",
+      "FTIME": "",
+      "OVERSHOOT": 0.09127413,
+      "PRESHOOT": 0.00384842
+    },
+    "CHAN2": {
+      "VMAX": 0.0216,
+      "VMIN": 0.0072,
+      "VPP": 0.0144,
+      "VAVG": 0.01470502,
+      "VRMS": 0.01512904,
+      "VAMP": 0.0144,
+      "PERIOD": 0.0732,
+      "FREQUENCY": 13.6612,
+      "RTIME": null,
+      "FTIME": null,
+      "OVERSHOOT": null,
+      "PRESHOOT": null
+    }
+  },
+  "waveforms": {
+    "CHAN1": {
+      "channel": "CHAN1",
+      "points_reported": 1200,
+      "points_received": 1200,
+      "average_count": 1,
+      "x_increment_s": 0.0001,
+      "x_origin_s": -0.06,
+      "x_reference": 0.0,
+      "y_increment_v": 0.04,
+      "y_origin": 0.0,
+      "y_reference": 127.0,
+      "preamble": "0,0,1200,1,1.000000e-04,-6.000000e-02,0,4.000000e-02,0,127"
+    },
+    "CHAN2": {
+      "channel": "CHAN2",
+      "points_reported": 1200,
+      "points_received": 1200,
+      "average_count": 1,
+      "x_increment_s": 0.0001,
+      "x_origin_s": -0.06,
+      "x_reference": 0.0,
+      "y_increment_v": 0.0008,
+      "y_origin": 0.0,
+      "y_reference": 127.0,
+      "preamble": "0,0,1200,1,1.000000e-04,-6.000000e-02,0,8.000000e-04,0,127"
+    }
+  },
+  "system_errors_after_capture": [
+    "-410,\"Query INTERRUPTED\""
+  ]
+}

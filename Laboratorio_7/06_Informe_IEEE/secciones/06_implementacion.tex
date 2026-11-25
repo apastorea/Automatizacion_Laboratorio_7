@@ -1,0 +1,43 @@
+\section{Metodología de simulación e implementación}
+\subsection{Cálculo y simulación en MATLAB}
+Se desarrolló un script de MATLAB que integra los tres niveles del análisis.
+Primero calcula la referencia ideal con los estados
+verdaderos, $u=-Kx+N_r r$, para aislar la dinámica de $A-BK$ sin observador;
+luego reproduce ADC, DAC bipolar, saturaciones y cronograma del
+firmware; finalmente importa las cuatro capturas UART/Rigol. Para cada caso
+exporta pico y tiempo al pico, valor final, error RMS, esfuerzo máximo y RMS de
+control, dispersión estacionaria del error observable, período de muestreo,
+tiempo de CPU y margen temporal. También genera las trayectorias de estados, el
+error observable, la convergencia ante una perturbación inicial y el análisis de
+coincidencia de códigos DAC.
+
+El error completo $\mathbf x-\widehat{\mathbf x}$ se evalúa en simulación. En
+el banco solo $x_2=y$ posee una medición independiente; por ello la evidencia
+experimental de error se expresa como $e_y=y-\hat x_2$, sin presentar
+$x_1-\hat x_1$ como si hubiese sido medido.
+
+\subsection{Arquitectura implementada en el PSoC}
+En cada interrupción de muestreo se adquiere J7 mediante el ADC, se convierte a
+unidades físicas y se actualiza el estimador seleccionado. Luego se calcula la
+ley~\eqref{eq:control}, se limita la solicitud a la región validada y se escribe
+el DAC. La UART registra referencia, salida, estados estimados, innovación,
+mando solicitado, mando nominal, banderas, intervalo y tiempo de ejecución.
+
+Los coeficientes identificados se integraron con límites conservadores de
+$[-115,107]$ mV, detección abortiva de saturación y comprobación posterior a la
+cuantización. Las cuatro combinaciones de arquitectura y ubicación compilaron
+en PSoC Creator 4.4 y se programaron sucesivamente. Ninguna
+ejecución generó banderas. Al finalizar se volvió a compilar y programar
+MONITOR, con el DAC en cero y todas las autorizaciones de lazo cerrado
+deshabilitadas; después se apagó la fuente bipolar.
+
+\subsection{Protocolo de medición}
+Antes del lazo cerrado se verificaron masas, sondas $10\times$, polaridad,
+salida nula, respuesta abierta, período de muestreo y retorno seguro. Para cada
+configuración se programó el firmware correspondiente, se rearmó el sistema y
+se adquirieron simultáneamente 256 registros UART y 1200 puntos por canal del
+Rigol. Los metadatos de cada adquisición permitieron verificar el modo, la
+familia de polos, el modelo identificado, el disparo físico, la ausencia de
+disparo forzado, $T_s$ y las banderas. Las ondas crudas se conservaron sin
+modificaciones; el suavizado mostrado en una figura se utiliza únicamente para
+visualización.

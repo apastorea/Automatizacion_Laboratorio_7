@@ -1,0 +1,2 @@
+poloReal,poloImag,moduloPolo,convergencia2pct_ms,abortosOperativosE1,abortosEstresRuidoE1,uSolicitadaOperativaMax_mV,uSolicitadaEstresMax_mV,sensibilidadActual_mVPorADC
+0.25,0.05,0.254950975679639,6,0,0,96.1928831688108,100.68295244088,25.641040384011

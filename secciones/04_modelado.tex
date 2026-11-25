@@ -1,0 +1,44 @@
+\section{Modelado y discretización}
+\subsection{Modelo identificado adoptado para el diseño}
+El diseño utiliza el modelo identificado en el Laboratorio 5 mediante
+mediciones entre J5 y J7:
+\begin{equation}
+G_p(s)=\frac{1.002941}{(0.00906915s+1)(0.000774399s+1)}.
+\label{eq:modelo_identificado}
+\end{equation}
+El ensayo abierto de este laboratorio produjo una ganancia incremental cercana
+a 0,98, coherente con la identificación previa. El modelo nominal se conserva
+como referencia del circuito, mientras que el controlador y los estimadores se
+calculan con el modelo de~\eqref{eq:modelo_identificado}.
+
+Para mantener $x_1$ y $x_2$ en voltios y la salida $y=x_2$, se usa una
+realización en cascada. La identificación entrada--salida no separa las
+ganancias de ambas etapas; se conserva la ganancia nominal de la primera y se
+asigna la segunda para reproducir exactamente la ganancia total
+de~\eqref{eq:modelo_identificado}. Este reparto fija una base de estados y no
+altera la transferencia medida.
+
+\subsection{Selección de muestreo y modelo discreto}
+Se adoptó $T_s=\SI{2}{\milli\second}$. Las cuatro capturas físicas registraron
+una mediana de período de \SI{2000}{\micro\second}. La discretización ZOH del
+modelo identificado resulta
+\begin{equation}
+A=\begin{bmatrix}0.80210&0\\-0.24963&0.075574\end{bmatrix},\qquad
+B=\begin{bmatrix}-0.63161\\0.13046\end{bmatrix},
+\end{equation}
+\begin{equation}
+C=\begin{bmatrix}0&1\end{bmatrix},\qquad D=0.
+\end{equation}
+Se verificaron
+$\operatorname{rango}\mathcal C(A,B)=2$ y
+$\operatorname{rango}\mathcal O(A,C)=2$. Por tanto, el modelo identificado
+discreto es controlable y observable desde J7.
+
+\subsection{Consistencia entre los tres niveles de validación}
+El mismo modelo identificado y las mismas ganancias se usaron en: (i) el
+cálculo lineal ideal; (ii) la simulación no ideal con cuantización ADC/DAC; y
+(iii) el firmware programado para los ensayos. La referencia fue
+\SI{50}{\milli\volt}, aplicada a partir de la muestra 32
+($t=\SI{64}{\milli\second}$), con estados reiniciados durante el pretrigger.
+Estas condiciones establecen una correspondencia directa entre cálculo,
+simulación y banco.

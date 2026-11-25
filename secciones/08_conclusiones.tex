@@ -1,0 +1,44 @@
+\section{Conclusiones}
+El modelo identificado a partir de las mediciones entre J5 y J7 proporcionó la
+base común para calcular el controlador, los observadores y las simulaciones.
+Los mismos coeficientes se programaron en el PSoC para las cuatro
+configuraciones. Los registros de 256 muestras mantuvieron un período de
+\SI{2}{\milli\second}, no presentaron banderas y contaron con disparo físico y
+medición simultánea de J5 y J7.
+
+La comparación directa utilizó una referencia ideal con estados verdaderos y
+mostró la dinámica de $A-BK$ sin intervención de un observador. Una vez que el
+error de estimación se hace despreciable, las respuestas comparten dicha
+dinámica; las diferencias sostenidas entre simulación y banco se explican por
+la cuantización, el ruido y la calibración. Los valores finales experimentales
+fueron 46,12; 49,62; 46,24 y \SI{50.30}{\milli\volt}, con picos entre 60 y
+65 mV.
+
+La evolución de los estados estimados mostró que $\hat x_2$ acompaña la salida
+medida, mientras que $\hat x_1$ representa el estado interno no medido. El error
+observable RMS descendió de 2,91 a \SI{2.29}{\milli\volt} entre Predictor y
+Actual E1, y de 2,91 a \SI{1.77}{\milli\volt} en E2. Ante la misma perturbación
+inicial, el uso de la muestra presente redujo inmediatamente la norma del error:
+11,69 frente a 22,36 mV en E1 y 8,37 frente a 22,36 mV en E2. Después de la
+convergencia no corresponde esperar dinámicas distintas, pues domina $A-BK$.
+
+La estimación modal al 2\,\% produjo tres muestras, o 6 ms, para E1 y E2. Con
+el criterio persistente $\|e\|_2<10^{-4}$ V, la perturbación considerada
+convergió en 6 ms para E1 y 8 ms para E2. Esta diferencia muestra que el cruce
+de un umbral finito también depende de la dirección del error inicial y de la
+combinación modal.
+
+Los mandos aplicados tuvieron valores RMS entre 49,78 y 53,28 mV. En las
+últimas 50 muestras, la desviación estándar del error observable fue 3,38;
+2,49; 3,49 y 1,72 mV para Predictor E1, Actual E1, Predictor E2 y Actual E2.
+Estos valores describen las condiciones de los ensayos realizados y muestran
+una menor dispersión para Actual E2. El peor tiempo de CPU fue 112 $\mu$s,
+equivalente al 5,60\,\% de $T_s$, con un margen temporal mínimo de 94,40\,\%.
+
+La resolución del actuador explica parte de la semejanza entre las respuestas
+experimentales. El nivel aplicado coincidió entre predictor y actual en
+46,48\,\% de las muestras E1 y 61,33\,\% de las E2; entre solicitudes distintas,
+la compresión al mismo código alcanzó 37,73\,\% y 54,17\,\%. Los pasos de
+10,56--15,37 mV son grandes frente a la referencia de
+\SI{50}{\milli\volt}, de modo que diferencias de mando pueden resultar
+invisibles en la salida física.

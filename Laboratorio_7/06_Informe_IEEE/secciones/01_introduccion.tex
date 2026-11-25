@@ -1,0 +1,20 @@
+\section{Introducción}
+La realimentación completa de estados permite modificar los polos del sistema,
+pero requiere conocer cada variable del vector de estado. Cuando sólo es posible
+medir la salida de la planta, el diseño digital puede incluir un observador
+capaz de reconstruir estados no medidos a partir del modelo, el mando y la
+señal disponible \cite{samanta2024,fadali2020,astrom2020}.
+
+La guía de esta práctica exige diseñar e implementar dos estructuras: un
+estimador de predicción y un estimador de estado actual. Ambas se aplicarán a
+una planta analógica de segundo orden. A diferencia del laboratorio previo,
+la realimentación debe efectuarse \emph{únicamente sobre los estados estimados};
+la medición física usada por el algoritmo será la salida del sistema.
+
+La experiencia acumulada en el Laboratorio 5 proporciona una infraestructura
+experimental de PSoC 5LP, MATLAB y adquisición con el Rigol DS1202Z-E. El
+modelo identificado allí se adopta como base del diseño después de
+contrastarlo con un ensayo abierto en esta práctica. En las cuatro
+configuraciones se emplean los coeficientes obtenidos con dicho modelo, de manera que
+los resultados calculados, simulados y experimentales corresponden al mismo
+modelo y a las mismas ganancias.

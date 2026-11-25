@@ -1,5 +1,5 @@
 /*
- * LABORATORIO 7 — Preparacion predictor E1 alternativo (SIN ACTIVAR).
+ * LABORATORIO 7 — Rediseno con modelo identificado (SIN ACTIVAR).
  * Copia independiente del TopDesign del Laboratorio 5 (sin modificar original).
  * Configuracion de ESTA PROPUESTA: MONITOR, DAC=0; control bloqueado.
  * AUTORES: plantilla tecnica generada para Lab7; verificar fisicamente antes del uso.
@@ -54,28 +54,29 @@ static float acumulado_cero_V = 0.0f;
 static float cero_V = 0.0f;
 static lab7_estado_t estado;
 
-/* MATRICES NOMINALES (NO CALIBRADAS FISICAMENTE): comprobar con MATLAB.
- * Es bloqueo del control fisico en lab7_config.h hasta validacion.
+/* MATRICES DEL MODELO IDENTIFICADO LAB5 J5-J7, Ts=2 ms.
+ * Prevalidadas offline con ruido medido; el control fisico permanece
+ * bloqueado en lab7_config.h hasta comprobar nuevamente el banco.
  */
 static const lab7_parametros_t parametros = {
-    {{0.87517332f,0.0f},{-0.21687099f,0.26359714f}},
-    {-0.39838302f,0.05792937f},
+    {{0.80209531f,0.0f},{-0.24962829f,0.07557362f}},
+    {-0.63161070f,0.13045908f},
     {0.0f,1.0f},
-    {2.15692217f,6.87132640f},
+    {3.07258956f,9.33893862f},
 #if LAB7_MODO == LAB7_MODO_ACTUAL
     #if LAB7_ESTIMADOR_VARIANTE == 1u
-    {-1.50583491f,0.42564406f}, /* E1 alternativo actual; z=0.35 +/- j0.10 */
+    {-1.53481428f,-0.07230205f}, /* E1 actual; z=0.25 +/- j0.05 */
     #else
-    {-2.45447706f,0.78326191f},
+    {-1.86049444f,0.17515227f},  /* E2 actual; z=0.20 +/- j0.10 */
     #endif
 #else
     #if LAB7_ESTIMADOR_VARIANTE == 1u
-    {-1.31786653f,0.43877046f}, /* E1 alternativo predictor; z=0.35 +/- j0.10 */
+    {-1.23106734f,0.37766894f}, /* E1 predictor; z=0.25 +/- j0.05 */
     #else
-    {-2.14809283f,0.73877046f},
+    {-1.49229387f,0.47766894f}, /* E2 predictor; z=0.20 +/- j0.10 */
     #endif
 #endif
-    1.09474803f, LAB7_U_MIN_V, LAB7_U_MAX_V,
+    0.55862462f, LAB7_U_MIN_V, LAB7_U_MAX_V,
 #if LAB7_MODO == LAB7_MODO_ACTUAL
     LAB7_EST_ACTUAL
 #else
@@ -226,7 +227,7 @@ static void volcar_uart(void)
     uint16 k;
     uint32 t_us=0u;
     UART_Debug_PutString(
-        "# LAB7 datos modelo_nominal=NO_VALIDADO calibracion_historica=SI "
+        "# LAB7 datos modelo_identificado=LAB5_J5_J7 calibracion_historica=SI "
         "Ts_nominal_us=2000 modo="
 #if LAB7_MODO == LAB7_MODO_MONITOR
         "MONITOR"
@@ -238,16 +239,16 @@ static void volcar_uart(void)
         "ACTUAL"
 #endif
         "\r\n");
-    /* Identificar E1 alternativo o E2 original segun la variante
+    /* Identificar E1 o E2 del rediseno identificado segun la variante
      * compilada; no modificar el formato de las filas CSV.
      */
     UART_Debug_PutString(
 #if LAB7_ESTIMADOR_VARIANTE == 1u
-        "# LAB7 diseno_E1=ALT_Z035_J010 "
+        "# LAB7 diseno_E1=ID_Z025_J005 "
 #else
-        "# LAB7 diseno_E2=ORIG_Z020_J010 "
+        "# LAB7 diseno_E2=ID_Z020_J010 "
 #endif
-        "limite_DAC_codigo=SI firmware=PROPUESTA_NO_VALIDADA\r\n");
+        "limite_DAC_codigo=SI firmware=ID_PREVALIDADO_OFFLINE\r\n");
     UART_Debug_PutString(
         "k,t_us,adc_counts,adc_mV,y_cal_mV,y_rel_mV,r_mV,"
         "u_solicitada_mV,u_nominal_mV,xhat1_mV,xhat2_mV,"

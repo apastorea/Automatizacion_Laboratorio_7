@@ -1,0 +1,3 @@
+par,pasoPositivo_mV,pasoNegativo_mV,porcentajeMismoNivel,porcentajeSolicitudDistintaMismoDAC,compresionSolicitudesDistintas,mediaDiferenciaSolicitada_mV,mediaDiferenciaAplicada_mV
+E1,15.370448,10.560422764,46.484375,32.421875,37.7272727272727,9.4375,10.06640625
+E2,15.370448,10.560422764,61.328125,45.703125,54.1666666666667,6.33984375,6.3125

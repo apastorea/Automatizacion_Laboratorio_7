@@ -3,7 +3,7 @@
 % Todas las parejas son adimensionales en el plano z.
 % Requiere Control System Toolbox.
 clear;clc;
-p=modelo_lab7();d=disenar_lab7(p);
+p=modelo_lab7("nominal");d=disenar_lab7(p);
 A=d.A;B=d.B;C=d.C;K=d.K;I=eye(2);
 tau1=.00906915;tau2=.000774399;K5=1.002941;
 a=-p.F(2,1);

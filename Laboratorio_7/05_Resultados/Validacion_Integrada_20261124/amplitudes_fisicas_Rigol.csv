@@ -1,0 +1,5 @@
+casos,deltaJ5_mV,deltaJ7_mV,gananciaFisica
+Predictor E1,44,46,1.04545454545455
+Actual E1,50,53.2,1.064
+Predictor E2,46,44.8,0.973913043478261
+Actual E2,48,50,1.04166666666667

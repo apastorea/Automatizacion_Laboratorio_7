@@ -1,0 +1,5 @@
+caso,convergenciaError1e4_ms,errorMax_mV,controlMax_mV
+Predictor E1 (alt.),4,10,75.4365609254973
+Actual E1 (alt.),4,10.7230205149289,85.8483825971093
+Predictor E2,6,10,75.43774784007
+Actual E2,6,8.24847731917609,75.4520323943373

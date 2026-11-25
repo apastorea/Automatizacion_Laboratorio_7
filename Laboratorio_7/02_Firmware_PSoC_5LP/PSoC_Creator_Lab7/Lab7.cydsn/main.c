@@ -1,5 +1,5 @@
 /*
- * LABORATORIO 7 — Prueba de planta en lazo abierto, observadores discretos.
+ * LABORATORIO 7 — Rediseno con modelo identificado (SIN ACTIVAR).
  * Copia independiente del TopDesign del Laboratorio 5 (sin modificar original).
  * MODO por defecto: MONITOR; activa DAC=0 y solo adquiere muestras.
  * AUTORES: plantilla tecnica generada para Lab7; verificar fisicamente antes del uso.
@@ -54,28 +54,29 @@ static float acumulado_cero_V = 0.0f;
 static float cero_V = 0.0f;
 static lab7_estado_t estado;
 
-/* MATRICES NOMINALES (NO CALIBRADAS FISICAMENTE): comprobar con MATLAB.
- * Es bloqueo del control fisico en lab7_config.h hasta validacion.
+/* MATRICES DEL MODELO IDENTIFICADO LAB5 J5-J7, Ts=2 ms.
+ * Prevalidadas offline con ruido medido; el control fisico permanece
+ * bloqueado en lab7_config.h hasta comprobar nuevamente el banco.
  */
 static const lab7_parametros_t parametros = {
-    {{0.87517332f,0.0f},{-0.21687099f,0.26359714f}},
-    {-0.39838302f,0.05792937f},
+    {{0.80209531f,0.0f},{-0.24962829f,0.07557362f}},
+    {-0.63161070f,0.13045908f},
     {0.0f,1.0f},
-    {2.15692217f,6.87132640f},
+    {3.07258956f,9.33893862f},
 #if LAB7_MODO == LAB7_MODO_ACTUAL
     #if LAB7_ESTIMADOR_VARIANTE == 1u
-    {-1.51891537f,0.03551549f},
+    {-1.53481428f,-0.07230205f},
     #else
-    {-2.45447706f,0.78326191f},
+    {-1.86049444f,0.17515227f},
     #endif
 #else
     #if LAB7_ESTIMADOR_VARIANTE == 1u
-    {-1.32931421f,0.33877046f},
+    {-1.23106734f,0.37766894f},
     #else
-    {-2.14809283f,0.73877046f},
+    {-1.49229387f,0.47766894f},
     #endif
 #endif
-    1.09474803f, LAB7_U_MIN_V, LAB7_U_MAX_V,
+    0.55862462f, LAB7_U_MIN_V, LAB7_U_MAX_V,
 #if LAB7_MODO == LAB7_MODO_ACTUAL
     LAB7_EST_ACTUAL
 #else
@@ -115,6 +116,9 @@ CY_ISR(Lab7MuestreoISR)
 {
     uint16 k=cuenta, tic_ini, intervalo=0u, cpu_us;
     uint8 banderas=0u, positivo=0u, negativo=0u, saturado=0u;
+#if LAB7_MODO == LAB7_MODO_PREDICCION || LAB7_MODO == LAB7_MODO_ACTUAL
+    unsigned int saturaciones_antes=estado.saturaciones;
+#endif
     int16 adc_raw=0;
     float adc_V=0.0f, salida_V, salida_rel_V, ref_V=0.0f;
     float u_solicitada_V=0.0f, u_nominal_V=0.0f;
@@ -154,6 +158,7 @@ CY_ISR(Lab7MuestreoISR)
         ref_V=LAB7_REFERENCIA_V;
         u_solicitada_V=lab7_calcular_paso(&parametros,&estado,
                                           ref_V,salida_rel_V);
+        if(estado.saturaciones>saturaciones_antes) banderas|=F_LIMITE;
     } else lab7_reiniciar(&estado,0.0f,0.0f);
 #else
     /* MONITOR: no genera escalon ni utiliza el controlador anterior. */
@@ -161,14 +166,21 @@ CY_ISR(Lab7MuestreoISR)
 #endif
 
     if(!es_finito(u_solicitada_V)) {u_solicitada_V=0.0f; banderas|=F_NUM;}
-    if((banderas&(F_ADC|F_NUM|F_TIEMPO|F_Y))!=0u) u_solicitada_V=0.0f;
+    if((banderas&(F_ADC|F_LIMITE|F_NUM|F_TIEMPO|F_Y))!=0u)
+        u_solicitada_V=0.0f;
 
     /* HAL heredada cuantiza el DAC. Estado del observador se ajusta
      * por diferencia entre u discreta solicitada y aplicada nominal.
      */
     u_nominal_V=Lab5HardwareWriteOutput(u_solicitada_V,
                                          &positivo,&negativo,&saturado);
-    if(saturado)banderas|=F_LIMITE;
+    if(saturado ||
+       u_nominal_V>LAB7_U_LIMITE_FISICO_V ||
+       u_nominal_V<(-LAB7_U_LIMITE_FISICO_V)) {
+        banderas|=F_LIMITE;
+        Lab5HardwareZeroOutput();
+        u_nominal_V=0.0f; positivo=0u; negativo=0u;
+    }
 #if LAB7_MODO == LAB7_MODO_PREDICCION || LAB7_MODO == LAB7_MODO_ACTUAL
     if(k>=LAB7_PRETRIGGER) {
         float diferencia=u_nominal_V-estado.u_aplicado_V;
@@ -210,7 +222,7 @@ static void volcar_uart(void)
     uint16 k;
     uint32 t_us=0u;
     UART_Debug_PutString(
-        "# LAB7 datos modelo_nominal=NO_VALIDADO calibracion_historica=SI "
+        "# LAB7 datos modelo_identificado=LAB5_J5_J7 calibracion_historica=SI "
         "Ts_nominal_us=2000 modo="
 #if LAB7_MODO == LAB7_MODO_MONITOR
         "MONITOR"
@@ -222,6 +234,13 @@ static void volcar_uart(void)
         "ACTUAL"
 #endif
         "\r\n");
+    UART_Debug_PutString(
+#if LAB7_ESTIMADOR_VARIANTE == 1u
+        "# LAB7 diseno_E1=ID_Z025_J005 "
+#else
+        "# LAB7 diseno_E2=ID_Z020_J010 "
+#endif
+        "limite_DAC_codigo=SI firmware=ID_PREVALIDADO_OFFLINE\r\n");
     UART_Debug_PutString(
         "k,t_us,adc_counts,adc_mV,y_cal_mV,y_rel_mV,r_mV,"
         "u_solicitada_mV,u_nominal_mV,xhat1_mV,xhat2_mV,"

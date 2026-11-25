@@ -5,7 +5,7 @@
 % Para el ruido se usa escenario de estres de 10mV RMS en salida, NO
 % es una estimacion medida en la entrada del ADC del PSoC.
 clear;clc; rng(7);
-p=modelo_lab7();d=disenar_lab7(p);
+p=modelo_lab7("nominal");d=disenar_lab7(p);
 Ts=p.Ts_s; N=256;
 K5=1.002941; t1=.00906915;t2=.000774399;
 a=-p.F(2,1);

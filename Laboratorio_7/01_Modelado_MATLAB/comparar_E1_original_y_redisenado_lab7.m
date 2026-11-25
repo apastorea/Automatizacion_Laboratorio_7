@@ -7,7 +7,7 @@
 % planta; la cuantizacion es aproximada segun antecedentes Lab5.
 % La respuesta es a escalon de referencia 50mV en t=64ms, NO pulso abierto.
 clear; clc; rng(7);
-p=modelo_lab7();
+p=modelo_lab7("nominal");
 d=disenar_lab7(p);
 Ts=p.Ts_s; N=256;
 A=d.A; B=d.B; C=d.C; K=d.K; Nr=d.Nr;

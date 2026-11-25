@@ -1,5 +1,5 @@
 % GENERAR_16_FIGURAS_LAB7
-% Exporta 16 figuras separadas de SIMULACIONES (4 por caso).
+% Exporta 16 figuras separadas con diseño sobre modelo identificado.
 % En nuestro modelo C=[0 1], y=x2; no se presenta x1 como salida medida.
 % Requiere Control System Toolbox. No modifica firmware.
 clear; clc;
@@ -21,24 +21,24 @@ for i=1:numel(d.observadores)
         stairs(t,s.r_V,'--','LineWidth',1.3); grid on;
         xlabel('Tiempo (ms)');ylabel('Tension (V)');
         legend('y[k]','r[k]','Location','best');
-        title(['SIMULACION - Respuesta ',etiqueta],'Interpreter','none');
+        title(['MODELO IDENTIFICADO - Respuesta ',etiqueta],'Interpreter','none');
         exportgraphics(f,fullfile(destino,[etiqueta '_01_respuesta.png']),'Resolution',220);close(f);
         f=figure('Color','w','Visible','off');
         stairs(t(1:end-1),s.u_V,'LineWidth',1.5);grid on;
         xlabel('Tiempo (ms)');ylabel('u aplicada (V)');
-        title(['SIMULACION - Control ',etiqueta],'Interpreter','none');
+        title(['MODELO IDENTIFICADO - Control ',etiqueta],'Interpreter','none');
         exportgraphics(f,fullfile(destino,[etiqueta '_02_control.png']),'Resolution',220);close(f);
         f=figure('Color','w','Visible','off');
         stairs(t,s.y_V,'LineWidth',1.5);hold on;
         stairs(t,yhat,'--','LineWidth',1.3);grid on;
         xlabel('Tiempo (ms)');ylabel('Tension (V)');
         legend('y[k]=C x[k]','yhat[k]=C xhat[k]','Location','best');
-        title(['SIMULACION - Estimacion ',etiqueta],'Interpreter','none');
+        title(['MODELO IDENTIFICADO - Estimacion ',etiqueta],'Interpreter','none');
         exportgraphics(f,fullfile(destino,[etiqueta '_03_estimacion.png']),'Resolution',220);close(f);
         f=figure('Color','w','Visible','off');
         stairs(t,eSalida,'LineWidth',1.5);grid on;
         xlabel('Tiempo (ms)');ylabel('e_y=y-yhat (V)');
-        title(['SIMULACION - Error ',etiqueta],'Interpreter','none');
+        title(['MODELO IDENTIFICADO - Error ',etiqueta],'Interpreter','none');
         exportgraphics(f,fullfile(destino,[etiqueta '_04_error.png']),'Resolution',220);close(f);
         caso(n,1)=string(etiqueta); %#ok<SAGROW>
         e_rms(n,1)=sqrt(mean(eSalida.^2)); %#ok<SAGROW>
@@ -51,5 +51,6 @@ end
 T=table(caso,e_rms,e_max,u_rms,u_min,u_max);
 writetable(T,fullfile(destino,'metricas_16_figuras_simuladas.csv'));
 disp(T);
-fprintf('Generadas %d figuras de SIMULACION en: %s\n',n*4,destino);
-fprintf('Advertencia: condiciones iniciales t=0; NO hay reinicio de estimador a 16 ms.\n');
+fprintf('Generadas %d figuras con modelo identificado en: %s\n',n*4,destino);
+fprintf('Referencia aplicada a %.0f ms; estados iniciales alineados con firmware.\n', ...
+    1000*p.referencia_inicio_s);

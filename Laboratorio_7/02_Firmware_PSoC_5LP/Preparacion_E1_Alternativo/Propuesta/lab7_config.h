@@ -1,9 +1,9 @@
 #ifndef LAB7_CONFIG_H
 #define LAB7_CONFIG_H
 /* Lab7: seleccionar el modo ANTES de compilar y revisar los enclavamientos.
- * PROPUESTA PREPARADA: MONITOR (DAC=0); control cerrado NO habilitado.
- * Diseno E1 alternativo: z=0.35 +/- j0.10, pendiente de verificacion real.
- * La planta y las calibraciones NO se han verificado fisicamente en Lab7.
+ * ESTADO SEGURO: MONITOR; DAC en cero y control cerrado NO habilitado.
+ * Rediseno identificado: E1=0.25 +/- j0.05; E2=0.20 +/- j0.10.
+ * Planta y cadena ADC/DAC verificadas con escalon fisico J5--J7.
  */
 #define LAB7_MODO_MONITOR          (0u)
 #define LAB7_MODO_LAZO_ABIERTO     (1u)
@@ -11,13 +11,13 @@
 #define LAB7_MODO_ACTUAL          (3u)
 
 #define LAB7_MODO LAB7_MODO_MONITOR
-#define LAB7_ESTIMADOR_VARIANTE (2u)   /* 1=E1; 2=E2 */
+#define LAB7_ESTIMADOR_VARIANTE   (1u)   /* 1=E1; 2=E2 */
 
 /* Cambiar a 1 SOLO después de completar cada ensayo previo. */
 #define LAB7_AUTORIZAR_ESCALON (0u)
-#define LAB7_PLANTA_VERIFICADA (0u)
-#define LAB7_ADC_DAC_REVALIDADOS (0u)
-#define LAB7_AUTORIZAR_LAZO_CERRADO (0u)
+#define LAB7_PLANTA_VERIFICADA         (0u)
+#define LAB7_ADC_DAC_REVALIDADOS       (0u)
+#define LAB7_AUTORIZAR_LAZO_CERRADO   (0u)
 
 #if LAB7_MODO > LAB7_MODO_ACTUAL
 #error Modo de laboratorio 7 invalido.

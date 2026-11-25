@@ -1,15 +1,22 @@
-function d = disenar_lab7(p)
+function d = disenar_lab7(p,mostrar)
 %DISENAR_LAB7 Discretizacion, realimentacion y dos observadores por dualidad.
 % Requiere Control System Toolbox: ss, c2d, ctrb, obsv, place.
 % De acuerdo con el enunciado: un solo canal de salida y una entrada.
 
-% Se permite el modelo NOMINAL de la guia SOLO PARA SIMULACION.
-permite_nominal = isfield(p,'simulacion_nominal') && p.simulacion_nominal && ...
-    isfield(p,'origen_modelo') && strcmp(p.origen_modelo,'GUIA_OFICIAL_NOMINAL');
-assert(isfield(p,'validado') && (p.validado || permite_nominal), ...
-    'Modelo no validado y sin origen nominal oficial documentado.');
-if ~p.validado
-    warning('SOLO SIMULACION: modelo nominal, NO validado fisicamente.');
+arguments
+    p struct
+    mostrar (1,1) logical = true
+end
+
+% El diseño predeterminado usa el modelo identificado. El nominal solo se
+% admite cuando el llamador lo pide expresamente para una comparación.
+permiteNominal = isfield(p,"simulacion_nominal") && p.simulacion_nominal && ...
+    isfield(p,"origen_modelo") && p.origen_modelo == "GUIA_OFICIAL_NOMINAL";
+assert(isfield(p,"validado") && (p.validado || permiteNominal), ...
+    "Modelo sin validación ni procedencia nominal documentada.");
+if permiteNominal
+    warning("LAB7:modeloNominal", ...
+        "Modelo nominal usado solo como referencia de simulación.");
 end
 F=p.F; G=p.G; H=p.H; J=p.J;
 assert(isequal(size(F),[2 2]) && isequal(size(G),[2 1]) && ...
@@ -38,6 +45,7 @@ Nr=1/den;
 
 d=struct('A',A,'B',B,'C',C,'D',D,'K',K,'Nr',Nr, ...
          'Ts_s',p.Ts_s,'polos_control',pc,'F',F,'G',G,'H',H, ...
+         'origen_modelo',p.origen_modelo, ...
          'revision_modelo',p.revision_modelo, ...
          'validado_fisicamente',p.validado);
 d.observadores=struct('nombre',{},'polos',{},'L_pred',{},'L_actual',{});
@@ -49,16 +57,18 @@ for i=1:numel(p.polos_estimador)
     assert(max(abs(eig(A-Lp*C)))<1, 'Predictor no estable.');
     assert(max(abs(eig((eye(2)-La*C)*A)))<1,'Observador actual no estable.');
     d.observadores(end+1)=struct('nombre',sprintf('E%d',i), ...
-        'polos',po,'L_pred',Lp,'L_actual',La); %#ok<AGROW>
+        'polos',po,'L_pred',Lp,'L_actual',La);
 end
 
-fprintf('Ts = %.6f s; rank(ctrb)=2; rank(obsv)=2\n',p.Ts_s);
-fprintf('A=\n');disp(A); fprintf('B=\n');disp(B);
-fprintf('K=\n');disp(K);fprintf('Nr=%.9g\n',Nr);
-for i=1:numel(d.observadores)
-    fprintf('%s: L_pred = ',d.observadores(i).nombre);
-    disp(d.observadores(i).L_pred.');
-    fprintf('%s: L_actual = ',d.observadores(i).nombre);
-    disp(d.observadores(i).L_actual.');
+if mostrar
+    fprintf('Ts = %.6f s; rank(ctrb)=2; rank(obsv)=2\n',p.Ts_s);
+    fprintf('A=\n');disp(A); fprintf('B=\n');disp(B);
+    fprintf('K=\n');disp(K);fprintf('Nr=%.9g\n',Nr);
+    for i=1:numel(d.observadores)
+        fprintf('%s: L_pred = ',d.observadores(i).nombre);
+        disp(d.observadores(i).L_pred.');
+        fprintf('%s: L_actual = ',d.observadores(i).nombre);
+        disp(d.observadores(i).L_actual.');
+    end
 end
 end

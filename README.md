@@ -4,45 +4,71 @@
 
 **Autor:** Aldo Pastore  
 **Carrera:** Ingeniería Electrónica  
-**Facultad de Ciencias y Tecnología — Universidad Católica «Nuestra Señora de la Asunción»**
+**Universidad Católica «Nuestra Señora de la Asunción»**
 
 ## Informe
 
-[**Abrir Informe_Lab7_Automatizacion_Pastore_v1.pdf**](Informe_Lab7_Automatizacion_Pastore_v1.pdf)
+[**Abrir el informe compilado**](Informe_Lab7_Automatizacion_Aldo_Pastore_v2.pdf)
 
-Este repositorio independiente reúne la entrega académica del Laboratorio 7: modelo de planta, ubicación de polos, implementación de los estimadores en PSoC 5LP y evaluación de cuatro configuraciones sobre un mismo montaje experimental.
+El trabajo estudia cuatro configuraciones de control digital sobre la misma
+planta de segundo orden: Predictor E1, Actual E1, Predictor E2 y Actual E2.
+El controlador y los estimadores se diseñaron con el modelo identificado de la
+planta, con período de muestreo de **2 ms** y referencia común de **50 mV**.
 
-Se utilizó una referencia común de **50 mV** y un período de muestreo de **2 ms**. El informe distingue las simulaciones del modelo, la salida muestreada registrada por UART y las señales físicas adquiridas mediante el Rigol DS1202Z-E.
+El informe presenta en forma conjunta los resultados calculados, simulados y
+experimentales; la evolución de los estados estimados y de sus errores; la
+convergencia de los observadores; el esfuerzo de control; la cuantización del
+DAC y las mediciones físicas de J5 y J7.
 
-## Materiales
+## Contenido del repositorio
 
-| Carpeta o archivo | Contenido |
+| Ruta | Contenido |
 |---|---|
-| [`Informe_Lab7_Automatizacion_Pastore_v1.pdf`](Informe_Lab7_Automatizacion_Pastore_v1.pdf) | Informe académico completo, formato de dos columnas |
-| [`main.tex`](main.tex), [`referencias.bib`](referencias.bib) | Fuentes editables para Overleaf y bibliografía |
-| [`figuras/`](figuras/) | Gráficas de respuestas, mandos y comparaciones instrumentales |
-| [`datos/comparacion_cuatro_ensayos.csv`](datos/comparacion_cuatro_ensayos.csv) | Síntesis numérica de las cuatro pruebas |
-| [`datos/originales/`](datos/originales/) | Datos UART, canales físicos CH1/CH2 y metadatos originales de adquisición |
-| [`anexos/reproducir_cuatro_ensayos_lab7.m`](anexos/reproducir_cuatro_ensayos_lab7.m) | Script MATLAB para reproducir la comparación de las cuatro salidas muestreadas |
-| [`README_OVERLEAF.md`](README_OVERLEAF.md) | Instrucciones de compilación del informe |
+| [`main.tex`](main.tex) y [`secciones/`](secciones/) | Fuente LaTeX editable del informe principal |
+| [`Laboratorio_7/01_Modelado_MATLAB/`](Laboratorio_7/01_Modelado_MATLAB/) | Modelado, diseño, simulación y validación en MATLAB |
+| [`Laboratorio_7/02_Firmware_PSoC_5LP/`](Laboratorio_7/02_Firmware_PSoC_5LP/) | Proyectos PSoC Creator, esquemáticos y fuentes C/H |
+| [`Laboratorio_7/04_Ensayos/`](Laboratorio_7/04_Ensayos/) | Procedimientos, capturadores y datos primarios del banco |
+| [`Laboratorio_7/05_Resultados/`](Laboratorio_7/05_Resultados/) | Tablas, métricas y figuras reproducibles |
+| [`Laboratorio_7/06_Informe_IEEE/`](Laboratorio_7/06_Informe_IEEE/) | Copia estructurada de las fuentes del informe |
+| [`Laboratorio_7/output/pdf/`](Laboratorio_7/output/pdf/) | PDF compilado dentro del árbol de trabajo |
 
-## Cómo reproducir la comparación
+## Evidencia experimental
 
-En MATLAB, abrí `anexos/reproducir_cuatro_ensayos_lab7.m` y ejecutá el script desde el editor. La rutina localizará los CSV almacenados en `datos/originales/` y mostrará las cuatro respuestas, el sobrepasamiento, el tiempo de pico y la media final.
+Las capturas sincronizadas definitivas están disponibles en:
 
-Para compilar el informe en Overleaf, cargá los archivos del repositorio como proyecto y seleccioná **pdfLaTeX** con `main.tex` como documento principal.
+- [`Predictor E1`](Laboratorio_7/04_Ensayos/Capturas_Sincronizadas/20261124_221144_972_pred_E1_identificado/)
+- [`Actual E1`](Laboratorio_7/04_Ensayos/Capturas_Sincronizadas/20261124_221418_036_actual_E1_identificado/)
+- [`Predictor E2`](Laboratorio_7/04_Ensayos/Capturas_Sincronizadas/20261124_221547_931_pred_E2_identificado/)
+- [`Actual E2`](Laboratorio_7/04_Ensayos/Capturas_Sincronizadas/20261124_221705_548_actual_E2_identificado/)
 
-## Alcance de los resultados
+Cada carpeta conserva los CSV originales de **CH1/J5** y **CH2/J7**, la
+pantalla del Rigol, los metadatos de adquisición y la telemetría UART del PSoC.
+Las capturas independientes de diagnóstico y del escalón abierto se mantienen
+en [`Capturas_Rigol/`](Laboratorio_7/04_Ensayos/Capturas_Rigol/).
 
-Se estudiaron cuatro ejecuciones: Predictor E1 alternativo, Actual E1 alternativo, Predictor E2 original y Actual E2 original. Cada registro contiene 256 muestras, con cero banderas de error durante la ventana observada. Las capturas del osciloscopio usaron respaldo de disparo temporizado; los datos instrumentales se conservan tal como fueron registrados, incluidos los metadatos de sincronización.
+## Reproducción
 
-La comparación es representativa de estas ejecuciones y no constituye una demostración de robustez global. Las curvas no se reescalaron para forzar coincidencia.
+En MATLAB, ejecutar:
 
-## Fuentes MATLAB y proyectos PSoC
+```matlab
+cd Laboratorio_7/01_Modelado_MATLAB
+validar_resultados_integrados_lab7
+```
 
-- [**MATLAB: modelado, diseño, simulación y robustez**](Laboratorio_7/01_Modelado_MATLAB/README.md). Contiene todos los scripts `.m` propios de la práctica.
-- [**PSoC 5LP y proyectos PSoC Creator**](Laboratorio_7/02_Firmware_PSoC_5LP/README.md). Incluye los dos proyectos, esquemáticos, archivos C/H, configuraciones y estimadores.
-- [**Capturadores de los ensayos**](Laboratorio_7/04_Ensayos/). Comandos Windows para UART y Rigol.
-- [**Herramientas Python USB/VISA y UART**](Herramientas_Comunes/Rigol_y_UART/README.md).
+La rutina reconstruye las tablas y figuras de
+[`Validacion_Integrada_20261124`](Laboratorio_7/05_Resultados/Validacion_Integrada_20261124/).
 
-Las configuraciones de trabajo principales se entregan en MONITOR con las autorizaciones de control deshabilitadas. Los respaldos históricos conservan su configuración de origen y no deben programarse directamente. Los registros reales de los cuatro ensayos están en `datos/originales/`. Se conservan los nombres técnicos internos de las bibliotecas de hardware para no romper las referencias de los proyectos.
+El proyecto principal de PSoC Creator se encuentra en
+[`PSoC_Creator_Lab7`](Laboratorio_7/02_Firmware_PSoC_5LP/PSoC_Creator_Lab7/).
+Los artefactos automáticos de compilación no se versionan; los proyectos,
+esquemáticos y fuentes necesarios para recompilar sí están incluidos.
+
+Para compilar el informe desde la raíz:
+
+```bash
+pdflatex -interaction=nonstopmode main.tex
+pdflatex -interaction=nonstopmode main.tex
+```
+
+También puede importarse el repositorio completo en Overleaf conservando su
+estructura de carpetas.

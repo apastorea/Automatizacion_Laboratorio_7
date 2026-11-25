@@ -7,7 +7,7 @@ clear;clc;close all;
 fprintf('\n==============================================\n');
 fprintf('LAB7: PREVALIDACION E2 (SOLO SIMULACION)\n');
 fprintf('==============================================\n');
-p=modelo_lab7();
+p=modelo_lab7("nominal");
 d=disenar_lab7(p);
 Ts=p.Ts_s;N=256;
 % Transferencia validada previamente en Lab5 (sin refit en Lab7)

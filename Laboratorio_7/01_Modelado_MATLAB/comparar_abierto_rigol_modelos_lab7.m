@@ -36,7 +36,7 @@ assert(nnz(pre)>30&&nnz(meseta)>30,'Ventanas temporales no validas.');
 u0=mean(u(pre));y0=mean(y(pre));
 du=mean(u(meseta))-u0;dy=mean(y(meseta))-y0;
 assert(du>0.005,'No se detecto pulso fisico en CH1.');
-p=modelo_lab7();
+p=modelo_lab7("nominal");
 Gnom=ss(p.F,p.G,p.H,p.J);
 G5=tf(1.002941,conv([0.00906915 1],[0.000774399 1]));
 tt=t-t(1);uin=u-u0; yout=y-y0;

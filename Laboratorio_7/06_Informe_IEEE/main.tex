@@ -1,0 +1,71 @@
+% Laboratorio 7 de Automatizacion - Informe IEEE editable.
+\documentclass[conference,10pt]{IEEEtran}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish,es-nodecimaldot]{babel}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{booktabs,tabularx,array}
+\usepackage{graphicx}
+\usepackage{cite}
+\usepackage{siunitx}
+\usepackage{url}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tikz}
+\sisetup{output-decimal-marker={,},per-mode=symbol}
+
+\title{Diseño e Implementación de Controladores Digitales\\
+con Estimadores de Predicción y Estado Actual}
+\author{\IEEEauthorblockN{Aldo Pastore}\\
+\IEEEauthorblockA{Carrera de Ingeniería Electrónica\\
+Universidad Católica ``Nuestra Señora de la Asunción''\\
+Asignatura: Automatización --- Laboratorio N.\textsuperscript{o} 7\\
+Docente: PhD. Enrique A. Vargas Cabral}}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+Se presenta la metodología de diseño e implementación de controladores digitales
+por realimentación de estados estimados para una planta analógica de segundo orden.
+Se consideran un estimador de predicción y un estimador de estado actual, con dos
+ubicaciones alternativas de polos del observador. El desarrollo se organiza desde
+el modelo físico y la selección del tiempo de muestreo hasta la discretización,
+la asignación de polos, la simulación en MATLAB y la implementación en PSoC 5LP.
+La cadena de adquisición y actuación se verificó con telemetría UART y un
+osciloscopio Rigol DS1202Z-E. El controlador y ambos estimadores se diseñaron
+directamente con el modelo identificado en el Laboratorio 5 y
+$T_s=\SI{2}{\milli\second}$. Se ensayaron las cuatro configuraciones, con 256
+muestras por caso, disparo físico, cero
+banderas y medición simultánea en J5/J7. Se presentan los estados estimados, el
+error observable, la convergencia ante error inicial y una comparación directa
+entre una referencia ideal con estados conocidos, simulación con ADC/DAC y
+experimento. Los estimadores
+actuales redujeron el error observable RMS respecto de sus predictores, mientras
+que, al extinguirse el error de estimación, las cuatro respuestas quedaron
+determinadas por los polos comunes de $A-BK$. La cuantización hizo coincidir los
+niveles aplicados por predictor y actual en 46,48\,\% de las muestras E1 y
+61,33\,\% de las E2, confirmando que la resolución del actuador limita la
+separación experimental. El peor tiempo de cálculo representó 5,60\,\% de
+$T_s$, por lo que el retardo de ejecución fue pequeño frente al período.
+\end{abstract}
+\begin{IEEEkeywords}
+control digital, estimación de estados, observador de predicción,
+observador actual, ubicación de polos, PSoC 5LP, MATLAB.
+\end{IEEEkeywords}
+
+\input{secciones/01_introduccion}
+\input{secciones/02_objetivos}
+\input{secciones/03_antecedentes}
+\input{secciones/04_modelado}
+\input{secciones/05_diseno_observadores}
+\input{secciones/06_implementacion}
+\input{secciones/07_resultados}
+\clearpage
+\raggedbottom
+\input{secciones/08_conclusiones}
+
+\input{secciones/09_bibliografia}
+\begin{tikzpicture}[remember picture,overlay]
+\node[anchor=south east,font=\scriptsize\sffamily] at
+([xshift=-10mm,yshift=8mm]current page.south east) {SDG};
+\end{tikzpicture}
+\end{document}

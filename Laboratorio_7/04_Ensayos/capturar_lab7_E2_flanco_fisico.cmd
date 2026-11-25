@@ -32,7 +32,7 @@ if errorlevel 1 (
  echo AVISO: error o captura no verificada. Revisar mensajes y metadatos.json.
 ) else (
  echo.
- echo Captura terminada: verificar modo UART y etiqueta diseno_E2=ORIG_Z020_J010.
+ echo Captura terminada: verificar modo UART y etiqueta diseno_E2=ID_Z020_J010.
 )
 echo.
 pause

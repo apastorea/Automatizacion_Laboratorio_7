@@ -1,0 +1,33 @@
+{
+  "timestamp_local": "2026-11-23T23:16:51-03:00",
+  "resource": "USB0::0x1AB1::0x0517::DS1ZE275014864::INSTR",
+  "modo_captura": "quick",
+  "waveforms": {
+    "CHAN1": {
+      "channel": "CHAN1",
+      "points_reported": 1200,
+      "points_received": 1200,
+      "average_count": 1,
+      "x_increment_s": 0.0005,
+      "x_origin_s": -0.3,
+      "x_reference": 0.0,
+      "y_increment_v": 0.0008,
+      "y_origin": 0.0,
+      "y_reference": 127.0,
+      "preamble": "0,0,1200,1,5.000000e-04,-3.000000e-01,0,8.000000e-04,0,127"
+    },
+    "CHAN2": {
+      "channel": "CHAN2",
+      "points_reported": 1200,
+      "points_received": 1200,
+      "average_count": 1,
+      "x_increment_s": 0.0005,
+      "x_origin_s": -0.3,
+      "x_reference": 0.0,
+      "y_increment_v": 0.0008,
+      "y_origin": 0.0,
+      "y_reference": 127.0,
+      "preamble": "0,0,1200,1,5.000000e-04,-3.000000e-01,0,8.000000e-04,0,127"
+    }
+  }
+}

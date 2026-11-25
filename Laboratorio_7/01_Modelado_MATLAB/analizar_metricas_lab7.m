@@ -1,5 +1,5 @@
 % ANALIZAR_METRICAS_LAB7 - Comparacion reproducible de los cuatro casos.
-% NOTA: Simulaciones NOMINALES solamente. NO son mediciones del PSoC.
+% NOTA: diseño y simulación con el modelo identificado. No son mediciones.
 % Requiere Control System Toolbox y las funciones de esta carpeta.
 % Ejecutar desde MATLAB: analizar_metricas_lab7
 clear; clc;
@@ -81,9 +81,9 @@ disp(T);
 carpeta = fileparts(mfilename('fullpath'));
 destino = fullfile(carpeta, '..', '05_Resultados');
 if ~isfolder(destino), mkdir(destino); end
-archivo = fullfile(destino, 'metricas_nominales_lab7.csv');
+archivo = fullfile(destino, 'metricas_identificadas_lab7.csv');
 writetable(T, archivo);
 fprintf('\nCSV generado: %s\n', archivo);
 fprintf('Escalon real: %.0f ms (primer k con referencia positiva: %d, t=(k-1)*Ts).\n', ...
     tiempo_escalon_ms(1), round(tiempo_escalon_ms(1)/(1000*p.Ts_s))+1);
-fprintf('ATENCION: Datos de SIMULACION NOMINAL, no experimentales.\n');
+fprintf('ATENCION: simulación con modelo identificado; no es dato experimental.\n');

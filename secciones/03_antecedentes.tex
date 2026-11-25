@@ -1,0 +1,45 @@
+\section{Plataforma experimental y calibración}
+\subsection{Instrumentación}
+La plataforma comprende un PSoC 5LP con ADC, DAC y temporizador de muestreo;
+planta analógica con acondicionamiento de entrada y salida; fuente bipolar
+Minipa MPL-3305M ajustada a $\pm\SI{10.2}{\volt}$; PC con MATLAB; y
+osciloscopio \emph{Rigol DS1202Z-E}. Se emplearon sondas $10\times$,
+acoplamiento DC, masas comunes, telemetría UART a
+\SI{57600}{bit\per\second} y adquisición sincronizada. J5 midió el mando
+físicamente aplicado y J7 la salida de la planta.
+
+\subsection{Calibración y revalidación}
+La Tabla~\ref{tab:calib_historica} reúne los parámetros obtenidos en el
+Laboratorio 5 y reutilizados como punto de partida. Antes de cerrar el lazo se
+realizó un ensayo abierto identificado de aproximadamente
+\SI{50}{\milli\volt}. La variación robusta medida fue
+$\Delta J5=\SI{45.38}{\milli\volt}$ y
+$\Delta J7=\SI{44.45}{\milli\volt}$, equivalente a una ganancia incremental
+de 0,98. La concordancia entre ambos canales confirmó polaridad, continuidad,
+masa común y rango de señal antes de habilitar los controladores.
+
+\begin{table}[t]
+\centering
+\caption{Parámetros de calibración adoptados del Laboratorio 5.}
+\label{tab:calib_historica}
+\small
+\begin{tabular}{@{}ll@{}}
+\toprule
+Parámetro & Valor documentado \\
+\midrule
+Offset del ADC & \SI{2.353802067}{\volt} \\
+Escala ADC/planta & \SI{0.210251951}{\volt\per\volt} \\
+Ganancia de DAC (+) & 3,842612 \\
+Ganancia de DAC (-) & 2,640105691 \\
+Offset físico J5 & \SI{17.209}{\milli\volt} \\
+Factor de escala J5/mando aplicado & 0,981710 \\
+RMSE del ajuste de J7 & \SI{3.374}{\milli\volt} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+En cada ensayo se conservaron las ondas crudas de ambos canales, la telemetría
+digital, la referencia, los estados estimados, el mando solicitado, el mando
+nominal del DAC, banderas, tiempo de ejecución y metadatos de disparo. Esta
+trazabilidad permite comparar resultados calculados, simulados y experimentales
+sin inferir tensiones físicas únicamente a partir de códigos digitales.

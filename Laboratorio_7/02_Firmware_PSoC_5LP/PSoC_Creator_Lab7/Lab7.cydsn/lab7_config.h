@@ -1,7 +1,8 @@
 #ifndef LAB7_CONFIG_H
 #define LAB7_CONFIG_H
 /* Lab7: seleccionar el modo ANTES de compilar y revisar los enclavamientos.
- * MONITOR se entrega de fabrica como modo inicial seguro (DAC=0).
+ * MONITOR es el modo inicial seguro (DAC=0).
+ * Rediseno identificado: E1=0.25 +/- j0.05; E2=0.20 +/- j0.10.
  * La planta y las calibraciones NO se han verificado fisicamente en Lab7.
  */
 #define LAB7_MODO_MONITOR          (0u)
@@ -46,8 +47,9 @@
 #define LAB7_INICIO_MS           (3000u)
 #define LAB7_ESCALON_ABIERTO_V   (0.050f)
 #define LAB7_REFERENCIA_V       (0.050f)
-/* Esta limitacion aplica a la accion pedida; el DAC fisico es cuantizado. */
-#define LAB7_U_MIN_V            (-0.120f)
-#define LAB7_U_MAX_V            (0.120f)
+/* Limites conservadores antes de cuantizar y verificacion posterior. */
+#define LAB7_U_MIN_V            (-0.115f)
+#define LAB7_U_MAX_V            (0.107f)
+#define LAB7_U_LIMITE_FISICO_V   (0.120f)
 #define LAB7_Y_FALLO_V          (0.500f)
 #endif

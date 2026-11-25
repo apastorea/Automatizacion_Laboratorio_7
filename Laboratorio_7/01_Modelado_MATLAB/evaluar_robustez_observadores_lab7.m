@@ -5,7 +5,7 @@
 % NO cambia el firmware, no autoriza activar lazo cerrado.
 % Requiere Control System Toolbox (ss, c2d, ssdata).
 clear; clc;
-p=modelo_lab7();
+p=modelo_lab7("nominal");
 d=disenar_lab7(p);
 Ts=p.Ts_s;
 

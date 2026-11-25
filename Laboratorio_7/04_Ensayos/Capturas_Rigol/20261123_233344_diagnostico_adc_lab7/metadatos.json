@@ -1,0 +1,90 @@
+{
+  "timestamp_local": "2026-11-23T23:33:44-03:00",
+  "resource": "USB0::0x1AB1::0x0517::DS1ZE275014864::INSTR",
+  "idn": "RIGOL TECHNOLOGIES,DS1202Z-E,DS1ZE275014864,00.06.04",
+  "system_errors_before_capture": [],
+  "run_state": "STOP",
+  "timebase_scale_s_div": "5.0000000e-02",
+  "timebase_offset_s": "0.0000000e+00",
+  "sample_rate_sa_s": "1.000000e+07",
+  "memory_depth_points": "AUTO",
+  "CHAN1": {
+    "display": "1",
+    "coupling": "DC",
+    "probe_ratio": "1.000000e+01",
+    "scale_v_div": "2.000000e-02",
+    "offset_v": "0.000000e+00",
+    "bandwidth_limit": "20M"
+  },
+  "CHAN2": {
+    "display": "1",
+    "coupling": "DC",
+    "probe_ratio": "1.000000e+01",
+    "scale_v_div": "2.000000e-02",
+    "offset_v": "0.000000e+00",
+    "bandwidth_limit": "20M"
+  },
+  "capture_selection": "all",
+  "waveforms": {
+    "CHAN1": {
+      "channel": "CHAN1",
+      "points_reported": 1200,
+      "points_received": 1200,
+      "average_count": 1,
+      "x_increment_s": 0.0005,
+      "x_origin_s": -0.3,
+      "x_reference": 0.0,
+      "y_increment_v": 0.0008,
+      "y_origin": 0.0,
+      "y_reference": 127.0,
+      "preamble": "0,0,1200,1,5.000000e-04,-3.000000e-01,0,8.000000e-04,0,127"
+    },
+    "CHAN2": {
+      "channel": "CHAN2",
+      "points_reported": 1200,
+      "points_received": 1200,
+      "average_count": 1,
+      "x_increment_s": 0.0005,
+      "x_origin_s": -0.3,
+      "x_reference": 0.0,
+      "y_increment_v": 0.0008,
+      "y_origin": 0.0,
+      "y_reference": 127.0,
+      "preamble": "0,0,1200,1,5.000000e-04,-3.000000e-01,0,8.000000e-04,0,127"
+    }
+  },
+  "measurements": {
+    "CHAN1": {
+      "VMAX": 0.0648,
+      "VMIN": 0.0104,
+      "VPP": 0.0544,
+      "VAVG": 0.02998662,
+      "VRMS": 0.03669499,
+      "VAMP": 0.0443,
+      "PERIOD": null,
+      "FREQUENCY": null,
+      "RTIME": "measure error!",
+      "FTIME": "",
+      "OVERSHOOT": 0.1084427,
+      "PRESHOOT": 0.1191038
+    },
+    "CHAN2": {
+      "VMAX": 0.072,
+      "VMIN": -0.004,
+      "VPP": 0.076,
+      "VAVG": 0.02655184,
+      "VRMS": 0.03525718,
+      "VAMP": 0.076,
+      "PERIOD": 0.2055,
+      "FREQUENCY": 4.86618,
+      "RTIME": 0.023,
+      "FTIME": 0.0245,
+      "OVERSHOOT": null,
+      "PRESHOOT": null
+    }
+  },
+  "system_errors_after_capture": [
+    "-410,\"Query INTERRUPTED\""
+  ],
+  "elapsed_seconds": 343.267
+}

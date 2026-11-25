@@ -1,19 +1,35 @@
-# Laboratorio 7 — Proyecto editable para Overleaf
+# Informe IEEE de Laboratorio 7
 
-1. Crear un proyecto nuevo en Overleaf mediante «Upload Project» e importar el archivo ZIP completo.
-2. Compilador: **pdfLaTeX**. Archivo principal: `main.tex`.
-3. El proyecto integra el encabezado institucional de Aldo Pastore, el desarrollo matemático, el diseño de observadores y las mediciones de las cuatro configuraciones del Laboratorio 7.
-4. Las gráficas PNG están incluidas en `figuras/` y la tabla resumida de resultados en `datos/`. No sustituir las imágenes por capturas de pantalla escaladas sin ajustar las referencias.
-5. Los cálculos y las cifras provienen de los CSV instrumentales guardados en el paquete de comparación, no de los resultados de otro estudiante.
-6. Los CSV instrumentales originales están en `datos/originales/`, y el script de `anexos/` reproduce las curvas a partir de esos registros.
+Formato de artículo académico a dos columnas, coherente con el informe propio
+del Laboratorio 5.
 
-## Consideraciones de interpretación
+- Principal: `main.tex`.
+- Secciones editables: `secciones/01_introduccion.tex` a
+  `secciones/08_conclusiones.tex`.
+- Bibliografía integrada: `secciones/09_bibliografia.tex`.
+- Resultados reproducibles:
+  `Laboratorio_7/01_Modelado_MATLAB/validar_resultados_integrados_lab7.m`.
+- Tablas y figuras:
+  `Laboratorio_7/05_Resultados/Validacion_Integrada_20261124/`.
+- Capturas físicas identificadas:
+  `Laboratorio_7/04_Ensayos/Capturas_Sincronizadas/20261124_221144_972_pred_E1_identificado`,
+  `20261124_221418_036_actual_E1_identificado`,
+  `20261124_221547_931_pred_E2_identificado` y
+  `20261124_221705_548_actual_E2_identificado`.
 
-- La etiqueta de modo esperado de algunas capturas se configuró erróneamente y no coincide con el modo ejecutado según UART. Se documenta esa limitación en el texto.
-- Todas las capturas de osciloscopio relevantes usaron el disparo forzado TFOR; las figuras alineadas por CH1 son comparaciones aproximadas, no sincronización física submilisegundo.
-- Las conclusiones son válidas para una ejecución por caso y un escalón de 50 mV; no implican estabilidad global ni superioridad definitiva.
+Para compilar en Overleaf, subir el repositorio conservando su estructura y
+usar pdfLaTeX. Localmente:
 
+```bash
+pdflatex -interaction=nonstopmode main.tex
+pdflatex -interaction=nonstopmode main.tex
+pdflatex -interaction=nonstopmode main.tex
+```
 
-## Identificación de esta versión
-
-Archivo final: `Informe_Lab7_Automatizacion_Pastore_v1.pdf`. La firma `SDG` figura exclusivamente en el pie derecho de la última página, conservando la numeración de páginas. La fuente principal para Overleaf es `main.tex`.
+El informe incorpora el diseño basado en el modelo identificado, la comparación directa
+cálculo--simulación--experimento, los estados y errores de las cuatro
+configuraciones, el análisis de convergencia, la cuantización del DAC y la
+evidencia física J5/J7. También incluye la referencia ideal con estados
+conocidos, convergencia teórica al 2 %, esfuerzo RMS, dispersión estacionaria del
+error observable y margen temporal del PSoC. Los datos numéricos proceden de MATLAB o de las capturas
+del banco; no se utilizaron resultados de informes ajenos.

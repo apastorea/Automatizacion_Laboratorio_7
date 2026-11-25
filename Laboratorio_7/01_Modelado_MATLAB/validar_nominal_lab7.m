@@ -1,7 +1,7 @@
 % VALIDAR_NOMINAL_LAB7 — Modelo guia, sin mediciones ni PSoC fisico.
 % Ejecutar en MATLAB con Control System Toolbox.
 clear; clc;
-p=modelo_lab7();
+p=modelo_lab7("nominal");
 assert(~p.validado && strcmp(p.origen_modelo,'GUIA_OFICIAL_NOMINAL'));
 assert(norm(p.F-[-66.66666667 0;-212.76595745 -666.66666667],'fro')<1e-6);
 assert(norm(p.G-[-212.76595745;0])<1e-6);

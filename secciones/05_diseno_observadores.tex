@@ -1,0 +1,50 @@
+\section{Diseño del controlador y estimadores}
+\subsection{Realimentación de estados estimados}
+Ambas arquitecturas utilizan
+\begin{equation}\label{eq:control}
+u[k]=-K\widehat{\mathbf{x}}[k]+N_r r[k].
+\end{equation}
+Con los polos de control $0.8\pm j0.25$ y el modelo identificado se obtiene
+\begin{equation}
+K=\begin{bmatrix}3.0726&9.3389\end{bmatrix},\qquad N_r=0.558625.
+\end{equation}
+La matriz $A-BK$ es común a los cuatro casos. Una vez que el error de estimación se
+vuelve despreciable, ella determina la dinámica del seguimiento.
+
+\subsection{Estimador de predicción}
+La estimación disponible para el control corresponde a la predicción previa:
+\begin{equation}
+\widehat{\mathbf{x}}[k+1]=A\widehat{\mathbf{x}}[k]+Bu[k]
++L_p\bigl(y[k]-C\widehat{\mathbf{x}}[k]\bigr).
+\end{equation}
+El error evoluciona según $(A-L_pC)e[k]$. Para E1 se adoptan polos
+$0.25\pm j0.05$ y para E2, $0.20\pm j0.10$. La ubicación E1 se seleccionó
+entre 35 candidatas exigiendo cero abortos con el ruido medido, tolerancia a
+un impulso de dos cuentas ADC y un módulo mayor que E2. El diseño produce
+\begin{align}
+L_{p,E1}&=\begin{bmatrix}-1.2311&0.37767\end{bmatrix}^{T},\\
+L_{p,E2}&=\begin{bmatrix}-1.4923&0.47767\end{bmatrix}^{T}.
+\end{align}
+
+\subsection{Estimador de estado actual}
+El estimador actual corrige la predicción con la muestra presente antes de
+calcular~\eqref{eq:control}:
+\begin{align}
+\mathbf z[k]&=A\widehat{\mathbf{x}}[k-1]+Bu[k-1],\\
+\widehat{\mathbf{x}}[k]&=\mathbf z[k]+L_a\bigl(y[k]-C\mathbf z[k]\bigr).
+\end{align}
+Su error corregido evoluciona con $(I-L_aC)A$. Para los mismos polos se obtiene
+\begin{align}
+L_{a,E1}&=\begin{bmatrix}-1.5348&-0.072302\end{bmatrix}^{T},\\
+L_{a,E2}&=\begin{bmatrix}-1.8605&0.17515\end{bmatrix}^{T}.
+\end{align}
+Las ordenadas iniciales de predictor y actual no son directamente equivalentes:
+el actual ya incorporó $y[k]$ en la muestra representada, mientras el predictor
+aplicará esa innovación a la estimación siguiente.
+
+\subsection{Límites y cuantización}
+La solicitud se limita a $[-115,107]$ mV. La cadena empleada produce pasos
+nominales de \SI{15.37}{\milli\volt} para la rama positiva y
+\SI{10.56}{\milli\volt} para la negativa. Por tanto, diferencias pequeñas en
+la acción calculada pueden desaparecer al convertirla en códigos del DAC. Esta
+no linealidad se incluye en la simulación alineada con la campaña experimental.
